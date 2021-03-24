@@ -68,22 +68,20 @@ var WireGuardIndicator = GObject.registerClass(
             let label = new St.Label({text: 'Button',
                                       y_expand: true,
                                       y_align: Clutter.ActorAlign.CENTER });
-            //box.add(label);
             this.icon = new St.Icon({style_class: 'system-status-icon'});
             this._update();
             box.add(this.icon);
             this.add_child(box);
-            /* Start Menu */
-            this.wireGuardSwitch = new PopupMenu.PopupSwitchMenuItem(
-                _('Wireguard status'),
-                {active: true});
-            this.wireGuardSwitch.label.set_text(_('Enable WireGuard'));
-            this.wireGuardSwitch.connect('toggled',
-                                         this._toggleSwitch.bind(this));
-            //this.wireGuardSwitch.connect('toggled', (widget, value) => {
-            //    this._toggleSwitch(value);
-            //});
-            this.menu.addMenuItem(this.wireGuardSwitch);
+            /* Start Menu - Toggles 0-4 */
+            var i;
+            for (i = 0; i < 5; i++) {
+                var nameValue = this._getValue("servicename" + i).split("@")[1].split(".")[0];
+                eval('var wgswitch = wireGuardSwitch' + i + ';');
+                this.wgswitch = new PopupMenu.PopupSwitchMenuItem(_('Wireguard status'), {active: true});
+                this.wgswitch.label.set_text(_(nameValue));
+                this.wgswitch.connect('toggled', this._toggleSwitch.bind(this));
+                this.menu.addMenuItem(this.wgswitch);
+            }
             /* Separator */
             this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
             /* Setings */
@@ -92,8 +90,6 @@ var WireGuardIndicator = GObject.registerClass(
                 ExtensionUtils.openPrefs();
             });
             this.menu.addMenuItem(this.settingsMenuItem);
-            /* Help */
-            this.menu.addMenuItem(this._get_help());
             /* Init */
             this._sourceId = 0;
             this._settingsChanged();
@@ -208,33 +204,6 @@ var WireGuardIndicator = GObject.registerClass(
             return icon;
         }
 
-        _get_help(){
-            let menu_help = new PopupMenu.PopupSubMenuMenuItem(_('Help'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Project Page'), 'info', 'https://github.com/atareao/microphone-loopback'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Get help online...'), 'help', 'https://www.atareao.es/aplicacion/microphone-loopback/'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Report a bug...'), 'bug', 'https://github.com/atareao/microphone-loopback/issues'));
-
-            menu_help.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-            
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('El atareao'), 'atareao', 'https://www.atareao.es'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('GitHub'), 'github', 'https://github.com/atareao'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Twitter'), 'twitter', 'https://twitter.com/atareao'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Telegram'), 'telegram', 'https://t.me/canal_atareao'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Mastodon'), 'mastodon', 'https://mastodon.social/@atareao'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('Spotify'), 'spotify', 'https://open.spotify.com/show/2v0fC8PyeeUTQDD67I0mKW'));
-            menu_help.menu.addMenuItem(this._create_help_menu_item(
-                _('YouTube'), 'youtube', 'http://youtube.com/c/atareao'));
-            return menu_help;
-        }
         _settingsChanged(){
             this._update();
             if(this._sourceId > 0){

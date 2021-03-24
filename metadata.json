@@ -1,10 +1,10 @@
 {
-    "name": "WireGuard Indicator",
-    "description": "Manage WireGuard VPN from Desktop",
+    "name": "WireGuard Panel",
+    "description": "Manage WireGuard VPN from Panel",
     "shell-version": ["3.36"],
-    "url": "https://github.com/atareao/wireguard-indicator", 
-    "uuid": "wireguard-indicator@atareao.es",
-    "gettext-domain": "wireguard-indicator@atareao.es", 
-    "settings-schema": "es.atareao.wireguard-indicator",
+    "url": "https://github.com/raisty/wireguard-gnome-panel",
+    "uuid": "wireguard-panel@satoshiplus.net",
+    "gettext-domain": "wireguard-panel@satoshiplus.net",
+    "settings-schema": "net.satoshiplus.wireguard-panel",
     "version": 3
 }

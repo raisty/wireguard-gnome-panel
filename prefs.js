@@ -76,27 +76,27 @@ var AboutWidget = GObject.registerClass(
             let aboutWebsite = new Gtk.Label({
                 label: '<a href="%s">%s</a>'.format(
                     Extension.metadata.url,
-                    _("Atareao")
+                    _("Satoshi+")
                 ),
                 use_markup: true
             });
             this.add(aboutWebsite);
 
             let aboutCopyright = new Gtk.Label({
-                label: "<small>" + _('Copyright © 2020 Lorenzo Carbonell') + "</small>",
+                label: "<small>" + _('Copyright © 2020 Lorenzo Carbonell') + "<br />" + _('Copyright © 2021 Rasty') + "</small>",
                 use_markup: true
             });
             this.add(aboutCopyright);
 
             let aboutLicense = new Gtk.Label({
                 label: "<small>" +
-                _("THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n") + 
-                _("IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n") + 
-                _("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n") + 
-                _("AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n") + 
-                _("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n") + 
-                _("FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS\n") + 
-                _("IN THE SOFTWARE.\n") + 
+                _("THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n") +
+                _("IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n") +
+                _("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n") +
+                _("AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n") +
+                _("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n") +
+                _("FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS\n") +
+                _("IN THE SOFTWARE.\n") +
                 "</small>",
                 use_markup: true,
                 justify: Gtk.Justification.CENTER
@@ -129,7 +129,7 @@ var WireGuarIndicatorPreferencesWidget = GObject.registerClass(
             this.add_titled(preferencesPage, "preferences", _("Preferences"));
 
             var settings = Convenience.getSettings();
-            
+
             let indicatorSection = preferencesPage.addSection(_("Indicator options"), null, {});
             indicatorSection.addGSetting(settings, "servicename");
             indicatorSection.addGSetting(settings, "checktime");
